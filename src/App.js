@@ -2,6 +2,8 @@ import React from "react";
 import "./style.css";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { format } from 'date-fns';
+import DayPickerInput from 'react-day-picker/DayPickerInput';
+import 'react-day-picker/lib/style.css';
 
 const data = [
   {
@@ -34,8 +36,30 @@ const data = [
   },
 ];
 
+const handleSubmit = () => {}
+const handleChange = () => {}
+
 export default function App() {
+  const FORMAT = 'MM/dd/yyyy';
+
   return (
+    <div>
+      <form onSubmit={handleSubmit} style={{ padding: 10 }}>
+        <label>
+          <input
+            className="search"
+            type="number"
+            onChange={handleChange}
+            placeholder="Enter your weight."
+            style={{ width: "60%" }}
+          />
+        </label>
+        <DayPickerInput 
+          format={FORMAT}
+          placeholder={`${format(new Date(), FORMAT)}`}
+        />
+        <input className="addButton" type="submit" value="Submit" />
+      </form>
       <LineChart
         width={700}
         height={300}
@@ -54,5 +78,6 @@ export default function App() {
         <Legend />
         <Line type="monotone" dataKey="weight" stroke="#8884d8" />
       </LineChart>
+    </div>
   );
 }
