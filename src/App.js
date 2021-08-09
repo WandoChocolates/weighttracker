@@ -1,49 +1,36 @@
 import React from "react";
 import "./style.css";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { format } from 'date-fns';
 
 const data = [
   {
     name: 'Page A',
-    uv: 4000,
-    pv: 2400,
-    amt: 2400,
+    weight: 52,
   },
   {
     name: 'Page B',
-    uv: 3000,
-    pv: 1398,
-    amt: 2210,
+    weight: 68,
   },
   {
     name: 'Page C',
-    uv: 2000,
-    pv: 9800,
-    amt: 2290,
+    weight: 62,
   },
   {
     name: 'Page D',
-    uv: 2780,
-    pv: 3908,
-    amt: 2000,
+    weight: 80,
   },
   {
     name: 'Page E',
-    uv: 1890,
-    pv: 4800,
-    amt: 2181,
+    weight: 75,
   },
   {
     name: 'Page F',
-    uv: 2390,
-    pv: 3800,
-    amt: 2500,
+    weight: 63,
   },
   {
     name: 'Page G',
-    uv: 3490,
-    pv: 4300,
-    amt: 2100,
+    weight: 90,
   },
 ];
 
@@ -65,8 +52,7 @@ export default function App() {
         <YAxis />
         <Tooltip />
         <Legend />
-        <Line type="monotone" dataKey="pv" stroke="#8884d8" activeDot={{ r: 8 }} />
-        <Line type="monotone" dataKey="uv" stroke="#82ca9d" />
+        <Line type="monotone" dataKey="weight" stroke="#8884d8" />
       </LineChart>
   );
 }
