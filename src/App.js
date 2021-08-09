@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import "./style.css";
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { format } from 'date-fns';
@@ -22,7 +22,7 @@ function formatDate(date, format, locale) {
   return dateFnsFormat(date, format, { locale });
 }
 
-const data = [
+const initialData = [
   {
     name: `${format(new Date(2014, 0, 12), 'MM/dd/yyyy')}`,
     weight: 52,
@@ -57,19 +57,18 @@ const handleSubmit = () => {}
 const handleChange = () => {}
 
 export default function App() {
+  const [data, setData] = useState(initialData);
   const FORMAT = 'MM/dd/yyyy';
 
   return (
     <div>
       <form onSubmit={handleSubmit} style={{ padding: 10 }}>
-        <label>
-          <input
-            className="search"
-            type="number"
-            onChange={handleChange}
-            placeholder="Enter your weight."
-          />
-        </label>
+        <input
+          className="weight"
+          type="number"
+          onChange={handleChange}
+          placeholder="Enter your weight."
+        />
         <DayPickerInput 
           formatDate={formatDate}
           format={FORMAT}
