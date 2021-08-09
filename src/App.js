@@ -1,6 +1,6 @@
-import React, {useState, useEffect} from "react";
+import React, {useState} from "react";
 import "./style.css";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
 import { format } from 'date-fns';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
@@ -24,56 +24,80 @@ function formatDate(date, format, locale) {
 
 const initialData = [
   {
-    name: `${format(new Date(2014, 0, 12), 'MM/dd/yyyy')}`,
+    date: `${format(new Date(2014, 0, 12), 'MM/dd/yyyy')}`,
     weight: 52,
   },
   {
-    name: `${format(new Date(2014, 1, 2), 'MM/dd/yyyy')}`,
+    date: `${format(new Date(2014, 1, 2), 'MM/dd/yyyy')}`,
     weight: 68,
   },
   {
-    name: `${format(new Date(2014, 2, 3), 'MM/dd/yyyy')}`,
+    date: `${format(new Date(2014, 2, 3), 'MM/dd/yyyy')}`,
     weight: 62,
   },
   {
-    name: `${format(new Date(2014, 3, 4), 'MM/dd/yyyy')}`,
+    date: `${format(new Date(2014, 3, 4), 'MM/dd/yyyy')}`,
     weight: 80,
   },
   {
-    name: `${format(new Date(2014, 4, 5), 'MM/dd/yyyy')}`,
+    date: `${format(new Date(2014, 4, 5), 'MM/dd/yyyy')}`,
     weight: 75,
   },
   {
-    name: `${format(new Date(2014, 5, 6), 'MM/dd/yyyy')}`,
+    date: `${format(new Date(2014, 5, 6), 'MM/dd/yyyy')}`,
     weight: 63,
   },
   {
-    name: `${format(new Date(2014, 6, 9), 'MM/dd/yyyy')}`,
+    date: `${format(new Date(2014, 6, 9), 'MM/dd/yyyy')}`,
     weight: 90,
   },
 ];
 
-const handleSubmit = () => {}
-const handleChange = () => {}
+
 
 export default function App() {
   const [data, setData] = useState(initialData);
+  const [weight, setWeight] = useState();
+  const [selectedDay, setDate] = useState();
   const FORMAT = 'MM/dd/yyyy';
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('-->', {weight});
+    console.log('-->', {selectedDay});
+    console.log('-->', {data});
+  }
+  const handleChange = (event) => {
+    setWeight(event.target.value);
+    setData([...data, {date: `${selectedDay}`, weight: `${weight}`}])
+  }
+
+  const handleDayChange = (selectedDay) => {
+    const date = dateFnsFormat(selectedDay, FORMAT)
+    setDate(date);
+  }
 
   return (
     <div>
       <form onSubmit={handleSubmit} style={{ padding: 10 }}>
         <input
+          name = "weight"
           className="weight"
           type="number"
           onChange={handleChange}
           placeholder="Enter your weight."
         />
         <DayPickerInput 
+          name = "date"
+          value={selectedDay}
+          onDayChange={handleDayChange}
+          dayPickerProps={{
+            selectedDays: selectedDay,
+          }}
           formatDate={formatDate}
           format={FORMAT}
           parseDate={parseDate}
-          placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
+          placeholder={`Date eg. ${dateFnsFormat(new Date(), FORMAT)}`}
         />
         <input className="addButton" type="submit" value="Submit" />
       </form>
@@ -90,7 +114,7 @@ export default function App() {
         }}
       >
         <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="name" />
+        <XAxis dataKey="date" />
         <YAxis />
         <Tooltip />
         <Legend />
