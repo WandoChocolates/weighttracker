@@ -5,31 +5,31 @@ import { format } from 'date-fns';
 
 const data = [
   {
-    name: 'Page A',
+    name: `${format(new Date(2014, 0, 12), 'MM/dd/yyyy')}`,
     weight: 52,
   },
   {
-    name: 'Page B',
+    name: `${format(new Date(2014, 1, 2), 'MM/dd/yyyy')}`,
     weight: 68,
   },
   {
-    name: 'Page C',
+    name: `${format(new Date(2014, 2, 3), 'MM/dd/yyyy')}`,
     weight: 62,
   },
   {
-    name: 'Page D',
+    name: `${format(new Date(2014, 3, 4), 'MM/dd/yyyy')}`,
     weight: 80,
   },
   {
-    name: 'Page E',
+    name: `${format(new Date(2014, 4, 5), 'MM/dd/yyyy')}`,
     weight: 75,
   },
   {
-    name: 'Page F',
+    name: `${format(new Date(2014, 5, 6), 'MM/dd/yyyy')}`,
     weight: 63,
   },
   {
-    name: 'Page G',
+    name: `${format(new Date(2014, 6, 9), 'MM/dd/yyyy')}`,
     weight: 90,
   },
 ];
@@ -37,7 +37,7 @@ const data = [
 export default function App() {
   return (
       <LineChart
-        width={500}
+        width={700}
         height={300}
         data={data}
         margin={{
