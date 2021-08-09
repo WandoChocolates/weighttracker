@@ -63,13 +63,11 @@ export default function App() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('-->', {weight});
-    console.log('-->', {selectedDay});
-    console.log('-->', {data});
+    setData([...data, {date: `${selectedDay}`, weight: weight}]);
   }
   const handleChange = (event) => {
-    setWeight(event.target.value);
-    setData([...data, {date: `${selectedDay}`, weight: `${weight}`}])
+    const a = parseFloat(event.target.value);
+    setWeight(a);
   }
 
   const handleDayChange = (selectedDay) => {
@@ -77,11 +75,16 @@ export default function App() {
     setDate(date);
   }
 
+  console.log('-->', {weight});
+  console.log('-->', {selectedDay});
+  console.log('-->', {data});
+
   return (
     <div>
       <form onSubmit={handleSubmit} style={{ padding: 10 }}>
         <input
           name = "weight"
+          value={weight}
           className="weight"
           type="number"
           onChange={handleChange}
