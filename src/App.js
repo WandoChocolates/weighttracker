@@ -1,9 +1,26 @@
 import React from "react";
 import "./style.css";
-import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend } from 'recharts';
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
 import { format } from 'date-fns';
 import DayPickerInput from 'react-day-picker/DayPickerInput';
 import 'react-day-picker/lib/style.css';
+
+//Using date-fns to parse and format dates
+import { DateUtils } from 'react-day-picker';
+import dateFnsFormat from 'date-fns/format';
+import dateFnsParse from 'date-fns/parse';
+
+function parseDate(str, format, locale) {
+  const parsed = dateFnsParse(str, format, new Date(), { locale });
+  if (DateUtils.isDate(parsed)) {
+    return parsed;
+  }
+  return undefined;
+}
+
+function formatDate(date, format, locale) {
+  return dateFnsFormat(date, format, { locale });
+}
 
 const data = [
   {
@@ -51,15 +68,17 @@ export default function App() {
             type="number"
             onChange={handleChange}
             placeholder="Enter your weight."
-            style={{ width: "60%" }}
           />
         </label>
         <DayPickerInput 
+          formatDate={formatDate}
           format={FORMAT}
-          placeholder={`${format(new Date(), FORMAT)}`}
+          parseDate={parseDate}
+          placeholder={`${dateFnsFormat(new Date(), FORMAT)}`}
         />
         <input className="addButton" type="submit" value="Submit" />
       </form>
+
       <LineChart
         width={700}
         height={300}
