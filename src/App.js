@@ -75,6 +75,8 @@ export default function App() {
     setDate(date);
   }
 
+  const addUser = () => {}
+
   console.log('-->', {weight});
   console.log('-->', {selectedDay});
   console.log('-->', {data});
@@ -123,6 +125,23 @@ export default function App() {
         <Legend />
         <Line type="monotone" dataKey="weight" stroke="#8884d8" />
       </LineChart>
+
+      <div
+        class="addUser"
+        style={{ display: "block", width: "25%" }}
+      >
+        <form>
+          <h1>User</h1>
+          <input type="text" className="addT" placeholder="name" />
+          <input
+            type="number"
+            in="0"
+            className="addT"
+            placeholder="weight"
+          />
+        </form>
+        <button onClick={addUser}>Add User</button>
+      </div>
     </div>
   );
 }
